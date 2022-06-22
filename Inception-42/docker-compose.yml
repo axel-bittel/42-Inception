@@ -1,21 +1,52 @@
-version: '3'
+version: '3.5'
+networks:
+  net:
+    name: net
+    driver: bridge
+volumes:
+  wp_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/abittel/data/wordpress
+  maria_volume:
+    name: maria_volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/abittel/data/mariadb
 services:
   mariadb:
     build: ./mariadb
     container_name: mariadb
-    ports: 
-      - 3306:3306
+    env_file:
+      - .env
+    networks: 
+      - net
+    #volumes:
+      #- maria_volume:/var/lib/mysql
     restart: unless-stopped
   wordpress:
     build: ./wordpress
     container_name: wordpress
-    ports: 
-      - 9000:9000
+    networks: 
+      - net
+    depends_on:
+      - mariadb
+#    volumes:
+#      - wp_volume:/var/www/html
     restart: unless-stopped
   nginx:
     build: ./nginx
     container_name: nginx 
     ports: 
-      - 80:80
+      - 443:443
+    depends_on:
+      - wordpress
+    networks:
+      - net
     restart: unless-stopped
+          
 
