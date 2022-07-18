@@ -1,5 +1,5 @@
 FROM debian:buster
-RUN apt-get update && apt-get install -y mariadb-server
+RUN apt-get update && apt-get install -y mariadb-server mariadb-client
 
 EXPOSE 3306
 
@@ -8,4 +8,4 @@ COPY ./tools/configure.sql /tmp/configure.sql
 
 RUN service mysql start && mysql < /tmp/configure.sql && cat /tmp/configure.sql
 
-CMD ["mysqld"]
+CMD ["mysqld", "-user=root --datadir=/var/lib/mysql"]

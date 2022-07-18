@@ -25,8 +25,8 @@ services:
       - .env
     networks: 
       - net
-    #volumes:
-      #- maria_volume:/var/lib/mysql
+    volumes:
+      - maria_volume:/var/lib/mysql
     restart: unless-stopped
   wordpress:
     build: ./wordpress
@@ -35,8 +35,8 @@ services:
       - net
     depends_on:
       - mariadb
-#    volumes:
-#      - wp_volume:/var/www/html
+    volumes:
+      - wp_volume:/var/www/html
     restart: unless-stopped
   nginx:
     build: ./nginx
