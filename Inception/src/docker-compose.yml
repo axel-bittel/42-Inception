@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 #NETWORK
 networks:
   net:
@@ -6,11 +6,13 @@ networks:
 #VOLUMES
 volumes:
   wordpress_volume:
+    driver: local
     driver_opts:
       type: none
       device: /home/abittel/data/wordpress
       o: bind
   mariadb_volume:
+    driver: local
     driver_opts:
       type: none
       device: /home/abittel/data/mariadb

@@ -2,18 +2,18 @@
 all: clean up
 
 up :
-	docker-compose -f src/docker-compose.yml  up --build -d
+	docker-compose -f src/docker-compose.yml  up --build
 down:
-	docker-compose ./src/ down
+	docker-compose -f src/docker-compose.yml down
 re: down up
 
 clean:
 	echo "Stop containers";
-	docker stop `(docker ps -qa)`;
+	#docker stop `(docker ps -qa)`;
 	echo "Rm containers";
-	docker rm `(docker ps -qa)`;
+	#docker rm `(docker ps -qa)`;
 	echo "Rm images";
-	docker rmi -f `(docker images -qa)`;
+	#docker rmi -f `(docker images -qa)`;
 	echo "Rm volumes";
 	docker volume rm `(docker volume ls -q)`;
 	echo "Rm networks"; 
