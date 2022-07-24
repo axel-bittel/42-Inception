@@ -19,9 +19,10 @@ if [ ! -e /var/www/html/wp-config.php ]; then
 	mv wp-cli.phar /usr/local/bin/wp && \
 	cd /var/www/html && \
 	wp core download --allow-root && \
-	cat wp-config.php && \
-	wp core install --allow-root --url="abittel.42.fr" --title="Inception" --admin_user="ROOT" --admin_password="ROOT42" --admin_email="ROOT@42.fr" 
-	wp user create --allow-root user_wp user_wp@42.fr --user_pass="WordPress42" &&\
+	echo "begin install" &&\
+	wp core install --allow-root --url=${URL} --title=${Inception} --admin_user=${USERNAME_ADMIN} --admin_password=${PASS_ADMIN} --admin_email=${EMAIL_ADMIN}
+	echo "end install" &&\
+	wp user create --allow-root ${USERNAME_MOI} ${EMAIL_MOI} --user_pass=${PASS_MOI} &&\
 	echo "END WORDPRESS CONFIG"
 fi
 exec "$@"
